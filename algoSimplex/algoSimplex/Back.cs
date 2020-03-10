@@ -31,6 +31,8 @@ namespace algoSimplex
         {
             List<double> valeurZJ = new List<double>();
 
+
+
             return valeurZJ;
         }
 
