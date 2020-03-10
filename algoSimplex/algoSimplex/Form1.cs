@@ -61,7 +61,7 @@ namespace algoSimplex
 
         private void BtnResult_Click(object sender, EventArgs e)
         {
-            FResultat FResultat = new FResultat();
+            FResultat FResultat = new FResultat(tableauFoncEconom);
             FResultat.Show();
             this.Hide();
         }
