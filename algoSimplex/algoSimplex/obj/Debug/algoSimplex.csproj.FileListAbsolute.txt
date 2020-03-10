@@ -1,0 +1,8 @@
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.csprojAssemblyReference.cache
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.Properties.Resources.resources
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.csproj.GenerateResource.cache
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\bin\Debug\algoSimplex.exe.config
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\bin\Debug\algoSimplex.exe
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\bin\Debug\algoSimplex.pdb
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.exe
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.pdb
