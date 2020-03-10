@@ -63,5 +63,10 @@ namespace algoSimplex
             tableauFoncEconom.ColumnCount = nombreVarariables;
             interfaceIHM.NameColumn(nombreVarariables, tableauFoncEconom);
         }
+
+        private void BtnResult_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

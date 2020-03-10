@@ -38,6 +38,9 @@
             this.lblNbVariables = new System.Windows.Forms.Label();
             this.tableauFoncEconom = new System.Windows.Forms.DataGridView();
             this.lblFEconomique = new System.Windows.Forms.Label();
+            this.lblZ = new System.Windows.Forms.Label();
+            this.txtZ = new System.Windows.Forms.TextBox();
+            this.btnResult = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.rangeBarNbContraintes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rangeBarNbVariables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tableauFoncEconom)).BeginInit();
@@ -46,7 +49,7 @@
             // radioMin
             // 
             this.radioMin.AutoSize = true;
-            this.radioMin.Location = new System.Drawing.Point(642, 59);
+            this.radioMin.Location = new System.Drawing.Point(642, 169);
             this.radioMin.Name = "radioMin";
             this.radioMin.Size = new System.Drawing.Size(63, 21);
             this.radioMin.TabIndex = 2;
@@ -57,7 +60,7 @@
             // radioMax
             // 
             this.radioMax.AutoSize = true;
-            this.radioMax.Location = new System.Drawing.Point(726, 59);
+            this.radioMax.Location = new System.Drawing.Point(726, 169);
             this.radioMax.Name = "radioMax";
             this.radioMax.Size = new System.Drawing.Size(66, 21);
             this.radioMax.TabIndex = 3;
@@ -68,7 +71,7 @@
             // lblNbContraintes
             // 
             this.lblNbContraintes.AutoSize = true;
-            this.lblNbContraintes.Location = new System.Drawing.Point(12, 26);
+            this.lblNbContraintes.Location = new System.Drawing.Point(12, 136);
             this.lblNbContraintes.Name = "lblNbContraintes";
             this.lblNbContraintes.Size = new System.Drawing.Size(100, 17);
             this.lblNbContraintes.TabIndex = 4;
@@ -76,7 +79,7 @@
             // 
             // rangeBarNbContraintes
             // 
-            this.rangeBarNbContraintes.Location = new System.Drawing.Point(118, 26);
+            this.rangeBarNbContraintes.Location = new System.Drawing.Point(118, 136);
             this.rangeBarNbContraintes.Minimum = 2;
             this.rangeBarNbContraintes.Name = "rangeBarNbContraintes";
             this.rangeBarNbContraintes.Size = new System.Drawing.Size(497, 56);
@@ -87,7 +90,7 @@
             // lblValueNbContraintes
             // 
             this.lblValueNbContraintes.AutoSize = true;
-            this.lblValueNbContraintes.Location = new System.Drawing.Point(350, 15);
+            this.lblValueNbContraintes.Location = new System.Drawing.Point(350, 125);
             this.lblValueNbContraintes.Name = "lblValueNbContraintes";
             this.lblValueNbContraintes.Size = new System.Drawing.Size(42, 17);
             this.lblValueNbContraintes.TabIndex = 6;
@@ -96,7 +99,7 @@
             // lblValueNbVariables
             // 
             this.lblValueNbVariables.AutoSize = true;
-            this.lblValueNbVariables.Location = new System.Drawing.Point(350, 77);
+            this.lblValueNbVariables.Location = new System.Drawing.Point(350, 187);
             this.lblValueNbVariables.Name = "lblValueNbVariables";
             this.lblValueNbVariables.Size = new System.Drawing.Size(42, 17);
             this.lblValueNbVariables.TabIndex = 9;
@@ -104,7 +107,7 @@
             // 
             // rangeBarNbVariables
             // 
-            this.rangeBarNbVariables.Location = new System.Drawing.Point(118, 88);
+            this.rangeBarNbVariables.Location = new System.Drawing.Point(118, 198);
             this.rangeBarNbVariables.Minimum = 2;
             this.rangeBarNbVariables.Name = "rangeBarNbVariables";
             this.rangeBarNbVariables.Size = new System.Drawing.Size(497, 56);
@@ -115,7 +118,7 @@
             // lblNbVariables
             // 
             this.lblNbVariables.AutoSize = true;
-            this.lblNbVariables.Location = new System.Drawing.Point(25, 88);
+            this.lblNbVariables.Location = new System.Drawing.Point(25, 198);
             this.lblNbVariables.Name = "lblNbVariables";
             this.lblNbVariables.Size = new System.Drawing.Size(87, 17);
             this.lblNbVariables.TabIndex = 7;
@@ -125,7 +128,7 @@
             // 
             this.tableauFoncEconom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableauFoncEconom.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tableauFoncEconom.Location = new System.Drawing.Point(12, 168);
+            this.tableauFoncEconom.Location = new System.Drawing.Point(12, 278);
             this.tableauFoncEconom.Name = "tableauFoncEconom";
             this.tableauFoncEconom.RowHeadersWidth = 51;
             this.tableauFoncEconom.RowTemplate.Height = 24;
@@ -136,17 +139,46 @@
             // 
             this.lblFEconomique.AutoSize = true;
             this.lblFEconomique.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFEconomique.Location = new System.Drawing.Point(12, 147);
+            this.lblFEconomique.Location = new System.Drawing.Point(12, 257);
             this.lblFEconomique.Name = "lblFEconomique";
             this.lblFEconomique.Size = new System.Drawing.Size(163, 17);
             this.lblFEconomique.TabIndex = 11;
             this.lblFEconomique.Text = "Fonction Économique";
+            // 
+            // lblZ
+            // 
+            this.lblZ.AutoSize = true;
+            this.lblZ.Location = new System.Drawing.Point(82, 67);
+            this.lblZ.Name = "lblZ";
+            this.lblZ.Size = new System.Drawing.Size(17, 17);
+            this.lblZ.TabIndex = 12;
+            this.lblZ.Text = "Z";
+            // 
+            // txtZ
+            // 
+            this.txtZ.Location = new System.Drawing.Point(118, 64);
+            this.txtZ.Name = "txtZ";
+            this.txtZ.Size = new System.Drawing.Size(497, 22);
+            this.txtZ.TabIndex = 13;
+            // 
+            // btnResult
+            // 
+            this.btnResult.Location = new System.Drawing.Point(717, 480);
+            this.btnResult.Name = "btnResult";
+            this.btnResult.Size = new System.Drawing.Size(75, 23);
+            this.btnResult.TabIndex = 14;
+            this.btnResult.Text = "Résultat";
+            this.btnResult.UseVisualStyleBackColor = true;
+            this.btnResult.Click += new System.EventHandler(this.BtnResult_Click);
             // 
             // fSimplex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 559);
+            this.Controls.Add(this.btnResult);
+            this.Controls.Add(this.txtZ);
+            this.Controls.Add(this.lblZ);
             this.Controls.Add(this.lblFEconomique);
             this.Controls.Add(this.tableauFoncEconom);
             this.Controls.Add(this.lblValueNbVariables);
@@ -179,6 +211,9 @@
         private System.Windows.Forms.Label lblNbVariables;
         private System.Windows.Forms.DataGridView tableauFoncEconom;
         private System.Windows.Forms.Label lblFEconomique;
+        private System.Windows.Forms.Label lblZ;
+        private System.Windows.Forms.TextBox txtZ;
+        private System.Windows.Forms.Button btnResult;
     }
 }
 
