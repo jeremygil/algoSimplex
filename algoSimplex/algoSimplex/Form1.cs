@@ -13,16 +13,11 @@ using Xceed.Wpf.Toolkit;
 
 namespace algoSimplex
 {
-    public partial class fSimplex : Form
+    public partial class FSimplex : Form
     {
-        public fSimplex()
+        public FSimplex()
         {
             InitializeComponent();
-        }
-
-        private void Label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,7 +34,7 @@ namespace algoSimplex
             tableauFoncEconom.AllowUserToAddRows = false;
             tableauFoncEconom.ColumnCount = nombreVarariables;
 
-            interfaceIHM.NameColumn(nombreVarariables, tableauFoncEconom);
+            InterfaceIHM.NameColumn(nombreVarariables, tableauFoncEconom);
         }
 
         private void RangeBarNbContraintes_ValueChanged(object sender, EventArgs e)
@@ -61,12 +56,14 @@ namespace algoSimplex
 
             /*Chargement tableau fonction économique*/
             tableauFoncEconom.ColumnCount = nombreVarariables;
-            interfaceIHM.NameColumn(nombreVarariables, tableauFoncEconom);
+            InterfaceIHM.NameColumn(nombreVarariables, tableauFoncEconom);
         }
 
         private void BtnResult_Click(object sender, EventArgs e)
         {
-
+            FResultat FResultat = new FResultat();
+            FResultat.Show();
+            this.Hide();
         }
     }
 }

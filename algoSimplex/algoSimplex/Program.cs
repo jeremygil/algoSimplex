@@ -16,7 +16,7 @@ namespace algoSimplex
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fSimplex());
+            Application.Run(new FSimplex());
         }
     }
 }

@@ -34,3 +34,4 @@ D:\Downloads\algoSimplex\algoSimplex\algoSimplex\algoSimplex\bin\Debug\sv\Xceed.
 D:\Downloads\algoSimplex\algoSimplex\algoSimplex\algoSimplex\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 D:\Downloads\algoSimplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.csproj.CopyComplete
 D:\Downloads\algoSimplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.fSimplex.resources
+D:\Downloads\algoSimplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.fResultat.resources

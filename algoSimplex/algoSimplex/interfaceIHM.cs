@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace algoSimplex
 {
-    class interfaceIHM
+    class InterfaceIHM
     {
 
         public static void NameColumn(Int32 pNomberColumn, DataGridView pTable)
