@@ -77,7 +77,7 @@
             // rangeBarNbContraintes
             // 
             this.rangeBarNbContraintes.Location = new System.Drawing.Point(118, 26);
-            this.rangeBarNbContraintes.Minimum = 1;
+            this.rangeBarNbContraintes.Minimum = 2;
             this.rangeBarNbContraintes.Name = "rangeBarNbContraintes";
             this.rangeBarNbContraintes.Size = new System.Drawing.Size(497, 56);
             this.rangeBarNbContraintes.TabIndex = 5;
@@ -105,7 +105,7 @@
             // rangeBarNbVariables
             // 
             this.rangeBarNbVariables.Location = new System.Drawing.Point(118, 88);
-            this.rangeBarNbVariables.Minimum = 1;
+            this.rangeBarNbVariables.Minimum = 2;
             this.rangeBarNbVariables.Name = "rangeBarNbVariables";
             this.rangeBarNbVariables.Size = new System.Drawing.Size(497, 56);
             this.rangeBarNbVariables.TabIndex = 8;
@@ -124,6 +124,7 @@
             // tableauFoncEconom
             // 
             this.tableauFoncEconom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableauFoncEconom.Cursor = System.Windows.Forms.Cursors.Default;
             this.tableauFoncEconom.Location = new System.Drawing.Point(12, 168);
             this.tableauFoncEconom.Name = "tableauFoncEconom";
             this.tableauFoncEconom.RowHeadersWidth = 51;

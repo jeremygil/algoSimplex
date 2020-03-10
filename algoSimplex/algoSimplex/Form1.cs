@@ -35,7 +35,7 @@ namespace algoSimplex
             Int32 nombreContraintes = (Int32)this.rangeBarNbContraintes.Value;
 
             /*Chargement tableau fonction économique*/
-            tableauFoncEconom.RowCount = nombreContraintes;
+            tableauFoncEconom.RowCount = nombreContraintes + 1;
             tableauFoncEconom.AllowUserToAddRows = false;
             tableauFoncEconom.ColumnCount = nombreVarariables;
 
