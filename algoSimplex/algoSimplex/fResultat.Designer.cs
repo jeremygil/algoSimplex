@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataResult = new System.Windows.Forms.DataGridView();
             this.btnRetour = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataResult)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dataResult
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 22);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 271);
-            this.dataGridView1.TabIndex = 0;
+            this.dataResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataResult.Location = new System.Drawing.Point(12, 22);
+            this.dataResult.Name = "dataResult";
+            this.dataResult.RowHeadersWidth = 51;
+            this.dataResult.RowTemplate.Height = 24;
+            this.dataResult.Size = new System.Drawing.Size(776, 271);
+            this.dataResult.TabIndex = 0;
             // 
             // btnRetour
             // 
@@ -59,18 +59,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 337);
             this.Controls.Add(this.btnRetour);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataResult);
             this.Name = "FResultat";
             this.Text = "fResultat";
             this.Load += new System.EventHandler(this.FResultat_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataResult)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataResult;
         private System.Windows.Forms.Button btnRetour;
     }
 }
