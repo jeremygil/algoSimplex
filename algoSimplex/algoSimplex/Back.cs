@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace algoSimplex
 {
-    class Back
+    public static class Back
     {
-        public void maximiser()
+        public static void maximiser()
         {
-
+            Console.Out.WriteLine("Maximiser");
         }
 
-        public double calculZ(int[] listCP, int[] listQuantite)
+        public static double calculZ(int[] listCP, int[] listQuantite)
         {
             double valeurZ = 0;
             if (listCP.Length.Equals(listQuantite.Length))
@@ -27,13 +27,21 @@ namespace algoSimplex
             return 0;
         }
 
-        public List<double> calculZj(int[] listCP, int[,] listContrainte)
+        public static List<double> calculZj(int[] listCP, int[,] listContrainte, int pRow, int pColumn)
         {
-            List<double> valeurZJ = new List<double>();
+            List<double> valeurZj = new List<double>();
 
+            for(int row = 0; row < pRow; row++)
+            {
+                double value = 0;
+                for (int column = 0; column < pColumn; column++)
+                {
+                    value += listCP[row] * listContrainte[row, column];
+                }
+                valeurZj.Add(value);
+            }
 
-
-            return valeurZJ;
+            return valeurZj;
         }
 
     }

@@ -1,0 +1,100 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\UnitTest_Simplex\\UnitTest_Simplex.csproj": {}
+  },
+  "projects": {
+    "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\algoSimplex\\algoSimplex.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\algoSimplex\\algoSimplex.csproj",
+        "projectName": "algoSimplex",
+        "projectPath": "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\algoSimplex\\algoSimplex.csproj"
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\UnitTest_Simplex\\UnitTest_Simplex.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\UnitTest_Simplex\\UnitTest_Simplex.csproj",
+        "projectName": "UnitTest_Simplex",
+        "projectPath": "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\UnitTest_Simplex\\UnitTest_Simplex.csproj",
+        "packagesPath": "C:\\Users\\Viandier\\.nuget\\packages\\",
+        "outputPath": "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\UnitTest_Simplex\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Viandier\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\algoSimplex\\algoSimplex.csproj": {
+                "projectPath": "D:\\Cour_Epsi\\I4\\Aide_la_décision\\Algorithme_Symplex\\algoSimplex\\algoSimplex\\algoSimplex\\algoSimplex.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.2.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
