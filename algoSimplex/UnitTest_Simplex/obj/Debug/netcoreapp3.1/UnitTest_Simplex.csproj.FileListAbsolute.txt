@@ -93,3 +93,4 @@ D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\Uni
 D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\UnitTest_Simplex\bin\Debug\netcoreapp3.1\algoSimplex.exe
 D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\UnitTest_Simplex\bin\Debug\netcoreapp3.1\algoSimplex.pdb
 D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\UnitTest_Simplex\bin\Debug\netcoreapp3.1\algoSimplex.exe.config
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\UnitTest_Simplex\bin\Debug\netcoreapp3.1\log4net.dll
