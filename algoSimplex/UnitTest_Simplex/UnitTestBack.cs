@@ -15,7 +15,7 @@ namespace UnitTest_Simplex
         {
             //Preparation
             int[] listCP = { 0, 0, 0 };
-            int[] listQuantite = { 1400, 1500, 1600 };
+            double[] listQuantite = { 1400, 1500, 1600 };
 
             //Appel methode
             double value = Back.calculZ(listCP,listQuantite);
@@ -81,7 +81,7 @@ namespace UnitTest_Simplex
             double[] listCjZj = { 100, 120, -20 };
 
             //Appel methode
-            int result = Back.minCjZJ(listCjZj);
+            int result = Back.minCjZj(listCjZj);
 
             //Resultat
             int testValuePlace = 2;
@@ -100,10 +100,52 @@ namespace UnitTest_Simplex
             double[] listCjZj = { 100, 120, -20 };
 
             //Appel methode
-            int result = Back.maxCjZJ(listCjZj);
+            int result = Back.maxCjZj(listCjZj);
 
             //Resultat
             int testValuePlace = 1;
+
+            //Affichage valeur
+            LOGGER.Info("Max de CjZj : " + result);
+
+            //Test
+            Assert.AreEqual(result, testValuePlace);
+        }
+
+        [TestMethod]
+        public void TestCalculRatio()
+        {
+            //Preparation
+            double[] listQuantite = { 100, 120, 200 };
+            double[,] listContrainte = { { 1, 2, 4 }, { 4, 5, 6 }, { 7, 8, 2 } };
+            int valeurPlace = 2;
+
+            //Appel methode
+            double[] result = Back.calculRatio(listQuantite, listContrainte, valeurPlace);
+
+            //Resultat
+            double[] testValuePlace = { 25, 20, 100 };
+
+            //Affichage valeur
+            LOGGER.Info("Ratio : " + result);
+
+            //Test
+            Assert.AreEqual(result[0], testValuePlace[0]);
+            Assert.AreEqual(result[1], testValuePlace[1]);
+            Assert.AreEqual(result[2], testValuePlace[2]);
+        }
+
+        [TestMethod]
+        public void TestMinRatio()
+        {
+            //Preparation
+            double[] listRatio = { 100, 120, -20 };
+
+            //Appel methode
+            int result = Back.minRatio(listRatio);
+
+            //Resultat
+            int testValuePlace = 2;
 
             //Affichage valeur
             LOGGER.Info("Min de CjZj : " + result);

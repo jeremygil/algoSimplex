@@ -21,14 +21,19 @@ namespace algoSimplex
             Console.Out.WriteLine("Minimiser");
         }
 
-        public static double calculZ(int[] listCP, int[] listQuantite)
+        public static void initialiseTable()
+        {
+
+        }
+
+        public static double calculZ(int[] listCP, double[] listQuantite)
         {
             double valeurZ = 0;
             if (listCP.Length.Equals(listQuantite.Length))
             {
                 for (int i = 0; i < listCP.Length; i++)
                 {
-                        valeurZ += Convert.ToDouble(listCP[i]) * Convert.ToDouble(listQuantite[i]);
+                    valeurZ += Convert.ToDouble(listCP[i]) * listQuantite[i];
                 }
                 LOGGER.Info("Valeur de Z : " + valeurZ);
                 return valeurZ;
@@ -60,7 +65,7 @@ namespace algoSimplex
         {
             double[] result = new double[listCj.Length];
 
-            for(int i = 0; i < listCj.Length; i++)
+            for (int i = 0; i < listCj.Length; i++)
             {
                 result[i] = listCj[i] - listZj[i];
             }
@@ -68,11 +73,11 @@ namespace algoSimplex
             return result;
         }
 
-        public static int minCjZJ(double[] listCjZj)
+        public static int minCjZj(double[] listCjZj)
         {
             double value = Int32.MaxValue;
             int result = 0;
-            for(int i = 0; i < listCjZj.Length; i++)
+            for (int i = 0; i < listCjZj.Length; i++)
             {
                 value = Math.Min(value, listCjZj[i]);
             }
@@ -88,7 +93,7 @@ namespace algoSimplex
             return result;
         }
 
-        public static int maxCjZJ(double[] listCjZj)
+        public static int maxCjZj(double[] listCjZj)
         {
             double value = Int32.MinValue;
             int result = 0;
@@ -108,6 +113,89 @@ namespace algoSimplex
             return result;
         }
 
+        public static double[] calculRatio(double[] listQuantite, double[,] listContrainte, int valeurPlace)
+        {
+            double[] result = new double[listQuantite.Length];
 
+            for (int i = 0; i < listQuantite.Length; i++)
+            {
+                result[i] = listQuantite[i] / listContrainte[i, valeurPlace];
+            }
+
+            return result;
+        }
+
+        public static int minRatio(double[] ratio)
+        {
+            double value = Int32.MaxValue;
+            int result = 0;
+            for (int i = 0; i < ratio.Length; i++)
+            {
+                value = Math.Min(value, ratio[i]);
+            }
+
+            for (int i = 0; i < ratio.Length; i++)
+            {
+                if (value.Equals(ratio[i]))
+                {
+                    result = i;
+                }
+            }
+
+            return result;
+        }
+
+        public static int[] updateCp(int[] listCp, int[] listCj, int ratio)
+        {
+            listCp[ratio] = listCj[ratio];
+            return listCp;
+        }
+
+        public static double[] updateQuantitePivot(double[] listQuantite, int lignePivot, double valuePivot) {
+            listQuantite[lignePivot] = listQuantite[lignePivot] / valuePivot;
+            return listQuantite;
+        }
+
+        public static double[,] updateContraintePivot(double[,]listContrainte, int lignePivot, int colonnePivot, int nombreVariable)
+        {
+            double value = listContrainte[lignePivot, colonnePivot];
+            for(int i = 0; i < nombreVariable; i++)
+            {
+                listContrainte[lignePivot, i] = listContrainte[lignePivot, i] / value;
+            }
+
+            return listContrainte;
+        }
+
+        public static double[] updateQuantite(double[] listQuantite, int lignePivot, int colonnePivot, double[,] listConstrainte)
+        {
+            for(int i = 0; i < listQuantite.Length; i++)
+            {
+                if (!i.Equals(lignePivot))
+                {
+                    listQuantite[i] = listQuantite[i] - (listConstrainte[i, colonnePivot] * listQuantite[lignePivot]);
+                }
+            }
+
+            return listQuantite;
+        }
+
+        public static double[,] updateContrainte(double[,] listConstrainte, int lignePivot, int colonnePivot, int nombreContraintes, int nombreVariables)
+        {
+            for(int i = 0; i < nombreContraintes; i++)
+            {
+                if (!i.Equals(lignePivot))
+                {
+                    double valueMultiplicateur = listConstrainte[i,colonnePivot];
+
+                    for(int j = 0; j < nombreVariables; j++)
+                    {
+                        listConstrainte[i, j] = listConstrainte[i, j] - (valueMultiplicateur * listConstrainte[lignePivot,j]);
+                    }
+                }
+            }
+
+            return listConstrainte;
+        }
     }
 }
