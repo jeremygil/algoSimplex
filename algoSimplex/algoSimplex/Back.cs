@@ -11,19 +11,88 @@ namespace algoSimplex
     {
         private static ILog LOGGER = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static void maximiser()
+        private static double[,] listContrainte;
+        private static double[] listQuantite;
+        private static double[] listZj;
+        private static double[] listCjZj;
+        private static int[] listCj;
+        private static int[] listCp;
+        private static double zValue;
+        private static int row;
+        private static int column;
+
+        public static void maximiser(int nombreContrainte, int nombreVariable)
         {
-            Console.Out.WriteLine("Maximiser");
+            //Partie initialisation
+            initialiseTable(false, nombreContrainte, nombreVariable);
+            zValue = calculZ(listCp, listQuantite);
+            listZj = calculZj(listCp, listContrainte, row, column);
+            listCjZj = calculSoustractionCjZj(listCj, listZj);
+
+            bool verif = true;
+            do
+            {
+                //Partie traitement
+                int colonnePivot = maxCjZj(listCjZj);
+                int lignePivot = minRatio(calculRatio(listQuantite, listContrainte, colonnePivot));
+                listCp = updateCp(listCp, listCj, lignePivot);
+                double valuePivot = listContrainte[lignePivot, colonnePivot];
+                listQuantite = updateQuantitePivot(listQuantite, lignePivot, valuePivot);
+                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, nombreVariable);
+                listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
+                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, nombreContrainte, nombreVariable);
+                zValue = calculZ(listCp, listQuantite);
+                listZj = calculZj(listCp, listContrainte, row, column);
+                listCjZj = calculSoustractionCjZj(listCj, listZj);
+                verif = isFinalMax(listCjZj);
+            } while (verif);
         }
 
-        public static void minimiser()
+        public static void minimiser(int nombreContrainte, int nombreVariable)
         {
-            Console.Out.WriteLine("Minimiser");
+            initialiseTable(false, nombreContrainte, nombreVariable);
+            zValue = calculZ(listCp, listQuantite);
+            listZj = calculZj(listCp, listContrainte, row, column);
+            listCjZj = calculSoustractionCjZj(listCj, listZj);
+
+            bool verif = true;
+            do
+            {
+                //Partie traitement
+                int colonnePivot = minCjZj(listCjZj);
+                int lignePivot = minRatio(calculRatio(listQuantite, listContrainte, colonnePivot));
+                listCp = updateCp(listCp, listCj, lignePivot);
+                double valuePivot = listContrainte[lignePivot, colonnePivot];
+                listQuantite = updateQuantitePivot(listQuantite, lignePivot, valuePivot);
+                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, nombreVariable);
+                listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
+                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, nombreContrainte, nombreVariable);
+                zValue = calculZ(listCp, listQuantite);
+                listZj = calculZj(listCp, listContrainte, row, column);
+                listCjZj = calculSoustractionCjZj(listCj, listZj);
+                verif = isFinalMin(listCjZj);
+            } while (verif);
         }
 
-        public static void initialiseTable()
+        public static void initialiseTable(bool minimiser, int nombreContrainte, int nombreVariable)
         {
+            row = nombreContrainte;
+            column = nombreVariable;
 
+            if (minimiser)
+            {
+                ajouteVariableArtificiel();
+            }
+            else
+            {
+
+            }
+
+        }
+
+        public static void ajouteVariableArtificiel()
+        {
+            Console.Out.WriteLine("VariableArtificiel");
         }
 
         public static double calculZ(int[] listCP, double[] listQuantite)
@@ -156,12 +225,11 @@ namespace algoSimplex
             return listQuantite;
         }
 
-        public static double[,] updateContraintePivot(double[,]listContrainte, int lignePivot, int colonnePivot, int nombreVariable)
+        public static double[,] updateContraintePivot(double[,]listContrainte, int lignePivot, double valuePivot, int nombreVariable)
         {
-            double value = listContrainte[lignePivot, colonnePivot];
             for(int i = 0; i < nombreVariable; i++)
             {
-                listContrainte[lignePivot, i] = listContrainte[lignePivot, i] / value;
+                listContrainte[lignePivot, i] = listContrainte[lignePivot, i] / valuePivot;
             }
 
             return listContrainte;
@@ -197,5 +265,45 @@ namespace algoSimplex
 
             return listConstrainte;
         }
+
+        public static bool isFinalMax(double[] listCjZj)
+        {
+            int compteur = 0;
+
+            for (int i = 0; i < listCjZj.Length; i++) {
+                if(listCjZj[i] <= 0)
+                {
+                    compteur++;
+                }
+            }
+
+            if (compteur.Equals(listCjZj.Length))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool isFinalMin(double[] listCjZj)
+        {
+            int compteur = 0;
+
+            for (int i = 0; i < listCjZj.Length; i++)
+            {
+                if (listCjZj[i] >= 0)
+                {
+                    compteur++;
+                }
+            }
+
+            if (compteur.Equals(listCjZj.Length))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }
