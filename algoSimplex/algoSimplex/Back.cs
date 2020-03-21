@@ -52,7 +52,7 @@ namespace algoSimplex
 
         public static double[] minimiser(int nombreContrainte, int nombreVariable)
         {
-            initialiseTable(false, nombreContrainte, nombreVariable);
+            initialiseTable(true, nombreContrainte, nombreVariable);
             zValue = calculZ(listCp, listQuantite);
             listZj = calculZj(listCp, listContrainte, row, column);
             listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -82,90 +82,152 @@ namespace algoSimplex
         {
             row = nombreContrainte;
             column = nombreVariable;
+            zValue = 0;
 
-            if (minimiser)
-            {                
-                ajouteVariableArtificiel();
-            }
-            else
+            //Rempli le tableau des contraintes
+            double[,] listConstraintTemp = new double[row, column];
+
+            for (int i = 0; i < row; i++)
             {
-                //Rempli le tableau des Cj
-                listCj = new int[column + row];
-                for (int i = 0; i < (column + row); i++)
+                for (int j = 0; j < column; j++)
                 {
-                    if (i < column)
+                    listConstraintTemp[i, j] = 0; //Remplacer 0 par la valeur corresondante dans le tableau des contraintes
+                }
+            }
+
+            int[,] listVariableEcart = new int[row, column];
+            int[,] listVariableArtificiel = new int[row, column];
+            int nombreVariableEcart = 0;
+            int nombreVariableArtificiel = 0;
+
+            for (int i = 0; i < row; i++)
+            {
+                string operateur = "="; //Remplacer le = par la valeur de l'opérateur (avant derniere colonne)
+                for (int j = 0; j < column; j++)
+                {
+                    if (i == j)
                     {
-                        listCj[i] = 0; //remplacer 0 par les éléments du tableau de la fonction économique
+                        if (operateur.Contains("<="))
+                        {
+                            listVariableEcart[i, j] = 1;
+                            listVariableArtificiel[i, j] = 0;
+                            nombreVariableEcart++;
+                        }
+                        else if (operateur.Contains("="))
+                        {
+                            listVariableEcart[i, j] = 0;
+                            if (minimiser)
+                            {
+                                listVariableArtificiel[i, j] = Int32.MaxValue;
+                            }
+                            else
+                            {
+                                listVariableArtificiel[i, j] = Int32.MinValue;
+                            }
+                            nombreVariableArtificiel++;
+                        }
+                        else
+                        {
+                            listVariableEcart[i, j] = -1;
+                            if (minimiser)
+                            {
+                                listVariableArtificiel[i, j] = Int32.MaxValue;
+                            }
+                            else
+                            {
+                                listVariableArtificiel[i, j] = Int32.MinValue;
+                            }
+
+                            nombreVariableArtificiel++;
+                            nombreVariableEcart++;
+                        }
+
                     }
                     else
                     {
-                        listCj[i] = 0;
+                        listVariableEcart[i, j] = 0;
+                        listVariableArtificiel[i, j] = 0;
                     }
                 }
+            }
 
-                //Rempli le tableau des contraintes
-                double[,] listConstraintTemp = new double[row, column];
+            int tailleMax = row + nombreVariableEcart + nombreVariableArtificiel;
+            listContrainte = new double[row, tailleMax];
 
-                for(int i = 0; i < row; i++)
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < column * 3; j++)
                 {
-                    for(int j = 0; j < column; j++)
+                    if (j < column)
                     {
-                        listConstraintTemp[i, j] = 0; //Remplacer 0 par la valeur corresondante dans le tableau des contraintes
+                        listContrainte[i, j] = listConstraintTemp[i, j];
+                    }
+                    else if (j < (tailleMax - nombreVariableArtificiel))
+                    {
+                        listContrainte[i, j] = listVariableEcart[i, j];
+                    }
+                    else
+                    {
+                        listContrainte[i, j] = listVariableArtificiel[i, j];
                     }
                 }
+            }
 
-                double[,] listVariableEcartTemp = new double[row, column];
-
-                for (int i = 0; i < row; i++)
+            //Remplir le tableau des Cj            
+            listCj = new int[tailleMax];
+            for (int i = 0; i < tailleMax; i++)
+            {
+                if (i < row)
                 {
-                    for (int j = 0; j < column; j++)
+                    listCj[i] = 0; //Remplacer par la valeur du tableau de contrainte
+                }
+                else if (i < (row + nombreVariableEcart))
+                {
+                    listCj[i] = 0;
+                }
+                else
+                {
+                    if (minimiser)
                     {
-                        if (i == j)
+                        listCj[i] = Int32.MaxValue;
+                    }
+                    else
+                    {
+                        listCj[i] = Int32.MinValue;
+                    }
+                }
+            }
+
+            //Rempli le tableau de Cp
+            listCp = new int[row];
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < tailleMax - row; j++)
+                {
+                    if (i == j)
+                    {
+                        if (listVariableEcart[i, j] < 0)
                         {
-                            listVariableEcartTemp[i, j] = 1;
+                            listCp[i] = listVariableArtificiel[i,j];
                         }
                         else
                         {
-                            listVariableEcartTemp[i, j] = 0;
+                            listCp[i] = listVariableEcart[i, j];
                         }
                     }
                 }
+            }
 
-                listContrainte = new double[row, (column + column)];
-
-                for(int i = 0; i < row; i++)
-                {
-                    for(int j = 0; j < column + column; j++)
-                    {
-                        if(j < column)
-                        {
-                            listContrainte[i, j] = listConstraintTemp[i, j];
-                        }
-                        else
-                        {
-                            listContrainte[i, j] = listVariableEcartTemp[i, j];
-                        }
-                    }
-                }
-
-                //Rempli les tableaux de Cp et de Quantité
-                listQuantite = new double[row];
-                listCp = new int[row];
-                for (int i = 0; i < row; i++)
-                {
-                    listQuantite[i] = 0; //remplacer 0 par la derniere colonne des contraintes.
-                    listCp[i] = 0;
-                }
+            //Rempli le tableau de Quantité
+            listQuantite = new double[row];
+            for (int i = 0; i < row; i++)
+            {
+                listQuantite[i] = 0; //remplacer 0 par la derniere colonne des contraintes.
             }
 
             listZj = new double[listCj.Length];
             listCjZj = new double[listCj.Length];
 
-        }
-
-        public static void ajouteVariableArtificiel()
-        {
-            Console.Out.WriteLine("VariableArtificiel");
         }
 
         public static double calculZ(int[] listCP, double[] listQuantite)
@@ -293,14 +355,15 @@ namespace algoSimplex
             return listCp;
         }
 
-        public static double[] updateQuantitePivot(double[] listQuantite, int lignePivot, double valuePivot) {
+        public static double[] updateQuantitePivot(double[] listQuantite, int lignePivot, double valuePivot)
+        {
             listQuantite[lignePivot] = listQuantite[lignePivot] / valuePivot;
             return listQuantite;
         }
 
-        public static double[,] updateContraintePivot(double[,]listContrainte, int lignePivot, double valuePivot, int nombreVariable)
+        public static double[,] updateContraintePivot(double[,] listContrainte, int lignePivot, double valuePivot, int nombreVariable)
         {
-            for(int i = 0; i < nombreVariable; i++)
+            for (int i = 0; i < nombreVariable; i++)
             {
                 listContrainte[lignePivot, i] = listContrainte[lignePivot, i] / valuePivot;
             }
@@ -310,7 +373,7 @@ namespace algoSimplex
 
         public static double[] updateQuantite(double[] listQuantite, int lignePivot, int colonnePivot, double[,] listConstrainte)
         {
-            for(int i = 0; i < listQuantite.Length; i++)
+            for (int i = 0; i < listQuantite.Length; i++)
             {
                 if (!i.Equals(lignePivot))
                 {
@@ -323,15 +386,15 @@ namespace algoSimplex
 
         public static double[,] updateContrainte(double[,] listConstrainte, int lignePivot, int colonnePivot, int nombreContraintes, int nombreVariables)
         {
-            for(int i = 0; i < nombreContraintes; i++)
+            for (int i = 0; i < nombreContraintes; i++)
             {
                 if (!i.Equals(lignePivot))
                 {
-                    double valueMultiplicateur = listConstrainte[i,colonnePivot];
+                    double valueMultiplicateur = listConstrainte[i, colonnePivot];
 
-                    for(int j = 0; j < nombreVariables; j++)
+                    for (int j = 0; j < nombreVariables; j++)
                     {
-                        listConstrainte[i, j] = listConstrainte[i, j] - (valueMultiplicateur * listConstrainte[lignePivot,j]);
+                        listConstrainte[i, j] = listConstrainte[i, j] - (valueMultiplicateur * listConstrainte[lignePivot, j]);
                     }
                 }
             }
@@ -343,8 +406,9 @@ namespace algoSimplex
         {
             int compteur = 0;
 
-            for (int i = 0; i < listCjZj.Length; i++) {
-                if(listCjZj[i] <= 0)
+            for (int i = 0; i < listCjZj.Length; i++)
+            {
+                if (listCjZj[i] <= 0)
                 {
                     compteur++;
                 }
@@ -385,9 +449,9 @@ namespace algoSimplex
 
             result[0] = valueZ;
 
-            for(int i = 0; i < nombreVariable; i++)
+            for (int i = 0; i < nombreVariable; i++)
             {
-                for(int j = 0; j < nombreContrainte; j++)
+                for (int j = 0; j < nombreContrainte; j++)
                 {
                     if (listCj[i].Equals(listCp[j]))
                     {
