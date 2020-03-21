@@ -73,3 +73,4 @@ D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\alg
 D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.pdb
 D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\bin\Debug\log4net.dll
 D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\bin\Debug\log4net.xml
+D:\Cour_Epsi\I4\Aide_la_décision\Algorithme_Symplex\algoSimplex\algoSimplex\algoSimplex\obj\Debug\algoSimplex.csproj.CoreCompileInputs.cache

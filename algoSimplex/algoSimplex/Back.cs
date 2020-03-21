@@ -21,7 +21,7 @@ namespace algoSimplex
         private static int row;
         private static int column;
 
-        public static void maximiser(int nombreContrainte, int nombreVariable)
+        public static double[] maximiser(int nombreContrainte, int nombreVariable)
         {
             //Partie initialisation
             initialiseTable(false, nombreContrainte, nombreVariable);
@@ -46,9 +46,11 @@ namespace algoSimplex
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
                 verif = isFinalMax(listCjZj);
             } while (verif);
+
+            return sendResult(zValue, row, column, listQuantite, listCj, listCp);
         }
 
-        public static void minimiser(int nombreContrainte, int nombreVariable)
+        public static double[] minimiser(int nombreContrainte, int nombreVariable)
         {
             initialiseTable(false, nombreContrainte, nombreVariable);
             zValue = calculZ(listCp, listQuantite);
@@ -72,21 +74,92 @@ namespace algoSimplex
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
                 verif = isFinalMin(listCjZj);
             } while (verif);
+
+            return sendResult(zValue, row, column, listQuantite, listCj, listCp);
         }
 
-        public static void initialiseTable(bool minimiser, int nombreContrainte, int nombreVariable)
+        public static void initialiseTable(bool minimiser, int nombreContrainte, int nombreVariable /*plus les éléments graphiques*/)
         {
             row = nombreContrainte;
             column = nombreVariable;
 
             if (minimiser)
-            {
+            {                
                 ajouteVariableArtificiel();
             }
             else
             {
+                //Rempli le tableau des Cj
+                listCj = new int[column + row];
+                for (int i = 0; i < (column + row); i++)
+                {
+                    if (i < column)
+                    {
+                        listCj[i] = 0; //remplacer 0 par les éléments du tableau de la fonction économique
+                    }
+                    else
+                    {
+                        listCj[i] = 0;
+                    }
+                }
 
+                //Rempli le tableau des contraintes
+                double[,] listConstraintTemp = new double[row, column];
+
+                for(int i = 0; i < row; i++)
+                {
+                    for(int j = 0; j < column; j++)
+                    {
+                        listConstraintTemp[i, j] = 0; //Remplacer 0 par la valeur corresondante dans le tableau des contraintes
+                    }
+                }
+
+                double[,] listVariableEcartTemp = new double[row, column];
+
+                for (int i = 0; i < row; i++)
+                {
+                    for (int j = 0; j < column; j++)
+                    {
+                        if (i == j)
+                        {
+                            listVariableEcartTemp[i, j] = 1;
+                        }
+                        else
+                        {
+                            listVariableEcartTemp[i, j] = 0;
+                        }
+                    }
+                }
+
+                listContrainte = new double[row, (column + column)];
+
+                for(int i = 0; i < row; i++)
+                {
+                    for(int j = 0; j < column + column; j++)
+                    {
+                        if(j < column)
+                        {
+                            listContrainte[i, j] = listConstraintTemp[i, j];
+                        }
+                        else
+                        {
+                            listContrainte[i, j] = listVariableEcartTemp[i, j];
+                        }
+                    }
+                }
+
+                //Rempli les tableaux de Cp et de Quantité
+                listQuantite = new double[row];
+                listCp = new int[row];
+                for (int i = 0; i < row; i++)
+                {
+                    listQuantite[i] = 0; //remplacer 0 par la derniere colonne des contraintes.
+                    listCp[i] = 0;
+                }
             }
+
+            listZj = new double[listCj.Length];
+            listCjZj = new double[listCj.Length];
 
         }
 
@@ -303,6 +376,27 @@ namespace algoSimplex
             }
 
             return true;
+        }
+
+        public static double[] sendResult(double valueZ, int nombreContrainte, int nombreVariable, double[] listQuantite, int[] listCj, int[] listCP)
+        {
+            int tailleTableResult = nombreVariable + 1;
+            double[] result = new double[tailleTableResult];
+
+            result[0] = valueZ;
+
+            for(int i = 0; i < nombreVariable; i++)
+            {
+                for(int j = 0; j < nombreContrainte; j++)
+                {
+                    if (listCj[i].Equals(listCp[j]))
+                    {
+                        result[i + 1] = listQuantite[j];
+                    }
+                }
+            }
+
+            return result;
         }
 
     }

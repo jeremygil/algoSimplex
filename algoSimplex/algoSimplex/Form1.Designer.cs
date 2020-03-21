@@ -49,9 +49,10 @@
             // radioMin
             // 
             this.radioMin.AutoSize = true;
-            this.radioMin.Location = new System.Drawing.Point(658, 132);
+            this.radioMin.Location = new System.Drawing.Point(494, 107);
+            this.radioMin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioMin.Name = "radioMin";
-            this.radioMin.Size = new System.Drawing.Size(63, 21);
+            this.radioMin.Size = new System.Drawing.Size(51, 17);
             this.radioMin.TabIndex = 2;
             this.radioMin.TabStop = true;
             this.radioMin.Text = "Min ?";
@@ -60,9 +61,10 @@
             // radioMax
             // 
             this.radioMax.AutoSize = true;
-            this.radioMax.Location = new System.Drawing.Point(742, 132);
+            this.radioMax.Location = new System.Drawing.Point(556, 107);
+            this.radioMax.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioMax.Name = "radioMax";
-            this.radioMax.Size = new System.Drawing.Size(66, 21);
+            this.radioMax.Size = new System.Drawing.Size(54, 17);
             this.radioMax.TabIndex = 3;
             this.radioMax.TabStop = true;
             this.radioMax.Text = "Max ?";
@@ -71,18 +73,20 @@
             // lblNbContraintes
             // 
             this.lblNbContraintes.AutoSize = true;
-            this.lblNbContraintes.Location = new System.Drawing.Point(28, 99);
+            this.lblNbContraintes.Location = new System.Drawing.Point(21, 80);
+            this.lblNbContraintes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNbContraintes.Name = "lblNbContraintes";
-            this.lblNbContraintes.Size = new System.Drawing.Size(100, 17);
+            this.lblNbContraintes.Size = new System.Drawing.Size(75, 13);
             this.lblNbContraintes.TabIndex = 4;
             this.lblNbContraintes.Text = "nb Contraintes";
             // 
             // rangeBarNbContraintes
             // 
-            this.rangeBarNbContraintes.Location = new System.Drawing.Point(134, 99);
+            this.rangeBarNbContraintes.Location = new System.Drawing.Point(100, 80);
+            this.rangeBarNbContraintes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rangeBarNbContraintes.Minimum = 2;
             this.rangeBarNbContraintes.Name = "rangeBarNbContraintes";
-            this.rangeBarNbContraintes.Size = new System.Drawing.Size(497, 56);
+            this.rangeBarNbContraintes.Size = new System.Drawing.Size(373, 45);
             this.rangeBarNbContraintes.TabIndex = 5;
             this.rangeBarNbContraintes.Value = 2;
             this.rangeBarNbContraintes.ValueChanged += new System.EventHandler(this.RangeBarNbContraintes_ValueChanged);
@@ -90,27 +94,30 @@
             // lblValueNbContraintes
             // 
             this.lblValueNbContraintes.AutoSize = true;
-            this.lblValueNbContraintes.Location = new System.Drawing.Point(366, 88);
+            this.lblValueNbContraintes.Location = new System.Drawing.Point(274, 72);
+            this.lblValueNbContraintes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblValueNbContraintes.Name = "lblValueNbContraintes";
-            this.lblValueNbContraintes.Size = new System.Drawing.Size(42, 17);
+            this.lblValueNbContraintes.Size = new System.Drawing.Size(33, 13);
             this.lblValueNbContraintes.TabIndex = 6;
             this.lblValueNbContraintes.Text = "value";
             // 
             // lblValueNbVariables
             // 
             this.lblValueNbVariables.AutoSize = true;
-            this.lblValueNbVariables.Location = new System.Drawing.Point(366, 150);
+            this.lblValueNbVariables.Location = new System.Drawing.Point(274, 122);
+            this.lblValueNbVariables.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblValueNbVariables.Name = "lblValueNbVariables";
-            this.lblValueNbVariables.Size = new System.Drawing.Size(42, 17);
+            this.lblValueNbVariables.Size = new System.Drawing.Size(33, 13);
             this.lblValueNbVariables.TabIndex = 9;
             this.lblValueNbVariables.Text = "value";
             // 
             // rangeBarNbVariables
             // 
-            this.rangeBarNbVariables.Location = new System.Drawing.Point(134, 161);
+            this.rangeBarNbVariables.Location = new System.Drawing.Point(100, 131);
+            this.rangeBarNbVariables.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rangeBarNbVariables.Minimum = 2;
             this.rangeBarNbVariables.Name = "rangeBarNbVariables";
-            this.rangeBarNbVariables.Size = new System.Drawing.Size(497, 56);
+            this.rangeBarNbVariables.Size = new System.Drawing.Size(373, 45);
             this.rangeBarNbVariables.TabIndex = 8;
             this.rangeBarNbVariables.Value = 2;
             this.rangeBarNbVariables.ValueChanged += new System.EventHandler(this.RangeBarNbVariables_ValueChanged);
@@ -118,9 +125,10 @@
             // lblNbVariables
             // 
             this.lblNbVariables.AutoSize = true;
-            this.lblNbVariables.Location = new System.Drawing.Point(41, 161);
+            this.lblNbVariables.Location = new System.Drawing.Point(31, 131);
+            this.lblNbVariables.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNbVariables.Name = "lblNbVariables";
-            this.lblNbVariables.Size = new System.Drawing.Size(87, 17);
+            this.lblNbVariables.Size = new System.Drawing.Size(65, 13);
             this.lblNbVariables.TabIndex = 7;
             this.lblNbVariables.Text = "nb Variables";
             // 
@@ -128,44 +136,49 @@
             // 
             this.tableauFoncEconom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableauFoncEconom.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tableauFoncEconom.Location = new System.Drawing.Point(28, 240);
+            this.tableauFoncEconom.Location = new System.Drawing.Point(21, 195);
+            this.tableauFoncEconom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableauFoncEconom.Name = "tableauFoncEconom";
             this.tableauFoncEconom.RowHeadersWidth = 51;
             this.tableauFoncEconom.RowTemplate.Height = 24;
-            this.tableauFoncEconom.Size = new System.Drawing.Size(780, 172);
+            this.tableauFoncEconom.Size = new System.Drawing.Size(585, 140);
             this.tableauFoncEconom.TabIndex = 10;
             // 
             // lblFEconomique
             // 
             this.lblFEconomique.AutoSize = true;
             this.lblFEconomique.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFEconomique.Location = new System.Drawing.Point(28, 220);
+            this.lblFEconomique.Location = new System.Drawing.Point(21, 179);
+            this.lblFEconomique.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFEconomique.Name = "lblFEconomique";
-            this.lblFEconomique.Size = new System.Drawing.Size(163, 17);
+            this.lblFEconomique.Size = new System.Drawing.Size(129, 13);
             this.lblFEconomique.TabIndex = 11;
-            this.lblFEconomique.Text = "Fonction Économique";
+            this.lblFEconomique.Text = "Fonction Economique";
             // 
             // lblZ
             // 
             this.lblZ.AutoSize = true;
-            this.lblZ.Location = new System.Drawing.Point(98, 30);
+            this.lblZ.Location = new System.Drawing.Point(74, 24);
+            this.lblZ.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblZ.Name = "lblZ";
-            this.lblZ.Size = new System.Drawing.Size(17, 17);
+            this.lblZ.Size = new System.Drawing.Size(14, 13);
             this.lblZ.TabIndex = 12;
             this.lblZ.Text = "Z";
             // 
             // txtZ
             // 
-            this.txtZ.Location = new System.Drawing.Point(134, 27);
+            this.txtZ.Location = new System.Drawing.Point(100, 22);
+            this.txtZ.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtZ.Name = "txtZ";
-            this.txtZ.Size = new System.Drawing.Size(497, 22);
+            this.txtZ.Size = new System.Drawing.Size(374, 20);
             this.txtZ.TabIndex = 13;
             // 
             // btnResult
             // 
-            this.btnResult.Location = new System.Drawing.Point(733, 443);
+            this.btnResult.Location = new System.Drawing.Point(550, 360);
+            this.btnResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnResult.Name = "btnResult";
-            this.btnResult.Size = new System.Drawing.Size(75, 23);
+            this.btnResult.Size = new System.Drawing.Size(56, 19);
             this.btnResult.TabIndex = 14;
             this.btnResult.Text = "Résultat";
             this.btnResult.UseVisualStyleBackColor = true;
@@ -173,9 +186,9 @@
             // 
             // FSimplex
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 481);
+            this.ClientSize = new System.Drawing.Size(627, 391);
             this.Controls.Add(this.btnResult);
             this.Controls.Add(this.txtZ);
             this.Controls.Add(this.lblZ);
@@ -189,6 +202,7 @@
             this.Controls.Add(this.lblNbContraintes);
             this.Controls.Add(this.radioMax);
             this.Controls.Add(this.radioMin);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FSimplex";
             this.Text = "Algo Simplex";
             this.Load += new System.EventHandler(this.Form1_Load);
