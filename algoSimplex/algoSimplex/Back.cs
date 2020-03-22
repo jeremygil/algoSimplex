@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using log4net;
 
 namespace algoSimplex
@@ -21,10 +22,10 @@ namespace algoSimplex
         private static int row;
         private static int column;
 
-        public static double[] maximiser(int nombreContrainte, int nombreVariable)
+        public static double[] maximiser(TrackBar trackContrainte, TrackBar trackVariable, DataGridView tableauZ, DataGridView tableauContraintes)
         {
             //Partie initialisation
-            initialiseTable(false, nombreContrainte, nombreVariable);
+            initialiseTable(false, trackContrainte, trackVariable,tableauZ, tableauContraintes);
             zValue = calculZ(listCp, listQuantite);
             listZj = calculZj(listCp, listContrainte, row, column);
             listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -38,9 +39,9 @@ namespace algoSimplex
                 listCp = updateCp(listCp, listCj, lignePivot);
                 double valuePivot = listContrainte[lignePivot, colonnePivot];
                 listQuantite = updateQuantitePivot(listQuantite, lignePivot, valuePivot);
-                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, nombreVariable);
+                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, column);
                 listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
-                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, nombreContrainte, nombreVariable);
+                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, column);
                 zValue = calculZ(listCp, listQuantite);
                 listZj = calculZj(listCp, listContrainte, row, column);
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -50,9 +51,9 @@ namespace algoSimplex
             return sendResult(zValue, row, column, listQuantite, listCj, listCp);
         }
 
-        public static double[] minimiser(int nombreContrainte, int nombreVariable)
+        public static double[] minimiser(TrackBar trackContrainte, TrackBar trackVariable, DataGridView tableauZ, DataGridView tableauContraintes)
         {
-            initialiseTable(true, nombreContrainte, nombreVariable);
+            initialiseTable(true, trackContrainte, trackVariable, tableauZ, tableauContraintes);
             zValue = calculZ(listCp, listQuantite);
             listZj = calculZj(listCp, listContrainte, row, column);
             listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -66,9 +67,9 @@ namespace algoSimplex
                 listCp = updateCp(listCp, listCj, lignePivot);
                 double valuePivot = listContrainte[lignePivot, colonnePivot];
                 listQuantite = updateQuantitePivot(listQuantite, lignePivot, valuePivot);
-                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, nombreVariable);
+                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, column);
                 listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
-                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, nombreContrainte, nombreVariable);
+                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, column);
                 zValue = calculZ(listCp, listQuantite);
                 listZj = calculZj(listCp, listContrainte, row, column);
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -78,10 +79,10 @@ namespace algoSimplex
             return sendResult(zValue, row, column, listQuantite, listCj, listCp);
         }
 
-        public static void initialiseTable(bool minimiser, int nombreContrainte, int nombreVariable /*plus les éléments graphiques*/)
+        public static void initialiseTable(bool minimiser, TrackBar trackContrainte, TrackBar trackVariable, DataGridView tableauZ, DataGridView tableauContraintes)
         {
-            row = nombreContrainte;
-            column = nombreVariable;
+            row = trackContrainte.Value;
+            column = trackVariable.Value;
             zValue = 0;
 
             //Rempli le tableau des contraintes
@@ -91,18 +92,19 @@ namespace algoSimplex
             {
                 for (int j = 0; j < column; j++)
                 {
-                    listConstraintTemp[i, j] = 0; //Remplacer 0 par la valeur corresondante dans le tableau des contraintes
+                    listConstraintTemp[i, j] = Double.Parse(tableauContraintes[j,i].Value.ToString());
                 }
             }
 
             int[,] listVariableEcart = new int[row, column];
             int[,] listVariableArtificiel = new int[row, column];
-            int nombreVariableEcart = 0;
-            int nombreVariableArtificiel = 0;
+            int columnEcart = 0;
+            int columnArtificiel = 0;
+            int colonneoperateur = column + 1;
 
             for (int i = 0; i < row; i++)
             {
-                string operateur = "="; //Remplacer le = par la valeur de l'opérateur (avant derniere colonne)
+                string operateur = tableauContraintes[colonneoperateur, i].Value.ToString();
                 for (int j = 0; j < column; j++)
                 {
                     if (i == j)
@@ -111,7 +113,7 @@ namespace algoSimplex
                         {
                             listVariableEcart[i, j] = 1;
                             listVariableArtificiel[i, j] = 0;
-                            nombreVariableEcart++;
+                            columnEcart++;
                         }
                         else if (operateur.Contains("="))
                         {
@@ -124,7 +126,7 @@ namespace algoSimplex
                             {
                                 listVariableArtificiel[i, j] = Int32.MinValue;
                             }
-                            nombreVariableArtificiel++;
+                            columnArtificiel++;
                         }
                         else
                         {
@@ -138,8 +140,8 @@ namespace algoSimplex
                                 listVariableArtificiel[i, j] = Int32.MinValue;
                             }
 
-                            nombreVariableArtificiel++;
-                            nombreVariableEcart++;
+                            columnArtificiel++;
+                            columnEcart++;
                         }
 
                     }
@@ -151,7 +153,7 @@ namespace algoSimplex
                 }
             }
 
-            int tailleMax = row + nombreVariableEcart + nombreVariableArtificiel;
+            int tailleMax = row + columnEcart + columnArtificiel;
             listContrainte = new double[row, tailleMax];
 
             for (int i = 0; i < row; i++)
@@ -162,7 +164,7 @@ namespace algoSimplex
                     {
                         listContrainte[i, j] = listConstraintTemp[i, j];
                     }
-                    else if (j < (tailleMax - nombreVariableArtificiel))
+                    else if (j < (tailleMax - columnArtificiel))
                     {
                         listContrainte[i, j] = listVariableEcart[i, j];
                     }
@@ -179,9 +181,9 @@ namespace algoSimplex
             {
                 if (i < row)
                 {
-                    listCj[i] = 0; //Remplacer par la valeur du tableau de contrainte
+                    listCj[i] = Int32.Parse(tableauZ[1,i].Value.ToString());
                 }
-                else if (i < (row + nombreVariableEcart))
+                else if (i < (row + columnEcart))
                 {
                     listCj[i] = 0;
                 }
@@ -220,9 +222,10 @@ namespace algoSimplex
 
             //Rempli le tableau de Quantité
             listQuantite = new double[row];
+            int colonneQuantite = column + 2;
             for (int i = 0; i < row; i++)
             {
-                listQuantite[i] = 0; //remplacer 0 par la derniere colonne des contraintes.
+                listQuantite[i] = Double.Parse(tableauContraintes[colonneQuantite, i].Value.ToString());
             }
 
             listZj = new double[listCj.Length];
@@ -361,9 +364,9 @@ namespace algoSimplex
             return listQuantite;
         }
 
-        public static double[,] updateContraintePivot(double[,] listContrainte, int lignePivot, double valuePivot, int nombreVariable)
+        public static double[,] updateContraintePivot(double[,] listContrainte, int lignePivot, double valuePivot, int column)
         {
-            for (int i = 0; i < nombreVariable; i++)
+            for (int i = 0; i < column; i++)
             {
                 listContrainte[lignePivot, i] = listContrainte[lignePivot, i] / valuePivot;
             }
@@ -384,7 +387,7 @@ namespace algoSimplex
             return listQuantite;
         }
 
-        public static double[,] updateContrainte(double[,] listConstrainte, int lignePivot, int colonnePivot, int nombreContraintes, int nombreVariables)
+        public static double[,] updateContrainte(double[,] listConstrainte, int lignePivot, int colonnePivot, int nombreContraintes, int columns)
         {
             for (int i = 0; i < nombreContraintes; i++)
             {
@@ -392,7 +395,7 @@ namespace algoSimplex
                 {
                     double valueMultiplicateur = listConstrainte[i, colonnePivot];
 
-                    for (int j = 0; j < nombreVariables; j++)
+                    for (int j = 0; j < columns; j++)
                     {
                         listConstrainte[i, j] = listConstrainte[i, j] - (valueMultiplicateur * listConstrainte[lignePivot, j]);
                     }
@@ -442,16 +445,16 @@ namespace algoSimplex
             return true;
         }
 
-        public static double[] sendResult(double valueZ, int nombreContrainte, int nombreVariable, double[] listQuantite, int[] listCj, int[] listCP)
+        public static double[] sendResult(double valueZ, int row, int column, double[] listQuantite, int[] listCj, int[] listCP)
         {
-            int tailleTableResult = nombreVariable + 1;
+            int tailleTableResult = column + 1;
             double[] result = new double[tailleTableResult];
 
             result[0] = valueZ;
 
-            for (int i = 0; i < nombreVariable; i++)
+            for (int i = 0; i < column; i++)
             {
-                for (int j = 0; j < nombreContrainte; j++)
+                for (int j = 0; j < row; j++)
                 {
                     if (listCj[i].Equals(listCp[j]))
                     {
