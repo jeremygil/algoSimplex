@@ -24,29 +24,30 @@ namespace algoSimplex
         {
             this.lblValueNbContraintes.Text = Convert.ToString(this.rangeBarNbContraintes.Value);
             this.lblValueNbVariables.Text = Convert.ToString(this.rangeBarNbVariables.Value);
-
-            //fonction economique
             Int32 nombreVarariables = (Int32)this.rangeBarNbVariables.Value;
             Int32 nombreContraintes = (Int32)this.rangeBarNbContraintes.Value;
 
-            /*Chargement tableau fonction économique*/
-            tableauFoncEconom.RowCount = nombreContraintes + 1;
-            tableauFoncEconom.AllowUserToAddRows = false;
-            tableauFoncEconom.ColumnCount = nombreVarariables;
 
-            InterfaceIHM.NameColumn(nombreVarariables, tableauFoncEconom);
+            /* Chargement tableau Z */
+            tableauZ.ColumnCount = nombreVarariables;
+            InterfaceIHM.NameColumn(nombreVarariables, tableauZ, false);
+
+
+            /*Chargement tableau fonction économique*/
+            tableauContraintes.RowCount = nombreContraintes + 1;
+            tableauContraintes.AllowUserToAddRows = false;
+            tableauContraintes.ColumnCount = nombreVarariables + 2;
+            InterfaceIHM.NameColumn(nombreVarariables, tableauContraintes, true);
         }
 
         private void RangeBarNbContraintes_ValueChanged(object sender, EventArgs e)
         {
             this.lblValueNbContraintes.Text = Convert.ToString(this.rangeBarNbContraintes.Value);
-            //fonction economique
             Int32 nombreContraintes = (Int32)this.rangeBarNbContraintes.Value;
 
-            /*Chargement tableau fonction économique*/
-            tableauFoncEconom.RowCount = nombreContraintes;
 
-       
+            /*Chargement tableau fonction économique*/
+            tableauContraintes.RowCount = nombreContraintes;
         }
 
         private void RangeBarNbVariables_ValueChanged(object sender, EventArgs e)
@@ -54,14 +55,18 @@ namespace algoSimplex
             this.lblValueNbVariables.Text = Convert.ToString(this.rangeBarNbVariables.Value);
             Int32 nombreVarariables = (Int32)this.rangeBarNbVariables.Value;
 
+            /* Chargement tableau Z */
+            tableauZ.ColumnCount = nombreVarariables;
+            InterfaceIHM.NameColumn(nombreVarariables, tableauZ, false);
+
             /*Chargement tableau fonction économique*/
-            tableauFoncEconom.ColumnCount = nombreVarariables;
-            InterfaceIHM.NameColumn(nombreVarariables, tableauFoncEconom);
+            tableauContraintes.ColumnCount = nombreVarariables + 2;
+            InterfaceIHM.NameColumn(nombreVarariables, tableauContraintes, true);
         }
 
         private void BtnResult_Click(object sender, EventArgs e)
         {
-            FResultat FResultat = new FResultat(tableauFoncEconom);
+            FResultat FResultat = new FResultat(tableauContraintes);
             FResultat.Show();
             this.Hide();
         }
