@@ -146,7 +146,7 @@ namespace algoSimplex
                 }
             }
 
-            tailleMax = row + columnEcart + columnArtificiel;
+            tailleMax = column + columnEcart + columnArtificiel;
             listContrainte = new double[row, tailleMax];
             int valueEcart = 0;
             int valueArtificielle = 0;
@@ -335,7 +335,10 @@ namespace algoSimplex
             int result = 0;
             for (int i = 0; i < ratio.Length; i++)
             {
-                value = Math.Min(value, ratio[i]);
+                double test = Math.Min(value, ratio[i]);
+                if (test > 0) {
+                    value = test;
+                }
             }
 
             for (int i = 0; i < ratio.Length; i++)
