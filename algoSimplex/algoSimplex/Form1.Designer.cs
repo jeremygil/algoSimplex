@@ -183,6 +183,7 @@
             this.tableauZ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableauZ.Location = new System.Drawing.Point(21, 113);
             this.tableauZ.Name = "tableauZ";
+            this.tableauZ.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tableauZ.Size = new System.Drawing.Size(585, 56);
             this.tableauZ.TabIndex = 15;
             // 

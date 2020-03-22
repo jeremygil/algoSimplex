@@ -27,6 +27,10 @@ namespace algoSimplex
             Int32 nombreVarariables = (Int32)this.rangeBarNbVariables.Value;
             Int32 nombreContraintes = (Int32)this.rangeBarNbContraintes.Value;
 
+            //Bloquer add row tab 
+            tableauZ.RowCount = 2;
+            tableauZ.AllowUserToAddRows = false;
+
 
             /* Chargement tableau Z */
             tableauZ.ColumnCount = nombreVarariables;
@@ -66,8 +70,18 @@ namespace algoSimplex
 
         private void BtnResult_Click(object sender, EventArgs e)
         {
-            FResultat FResultat = new FResultat(tableauContraintes);
-            FResultat.Show();
+            if (radioMin.Checked)
+            {
+                Double[] resultMin = Back.minimiser(rangeBarNbContraintes,rangeBarNbVariables,tableauZ,tableauContraintes);
+                FResultat FResultat = new FResultat(resultMin);
+                FResultat.Show();
+            }
+            if (radioMax.Checked)
+            {
+                Double[] resultMax = Back.maximiser(rangeBarNbContraintes, rangeBarNbVariables, tableauZ, tableauContraintes);
+                FResultat FResultat = new FResultat(resultMax);
+                FResultat.Show();
+            }
             this.Hide();
         }
     }

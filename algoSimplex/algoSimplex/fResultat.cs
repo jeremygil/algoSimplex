@@ -12,12 +12,13 @@ namespace algoSimplex
 {
     public partial class FResultat : Form
     {
-        private DataGridView tableauFoncEconom;
+        private double[] result;
 
-        public FResultat(DataGridView tableauFoncEconom)
+        public FResultat(double[] result)
         {
             InitializeComponent();
-            this.tableauFoncEconom = tableauFoncEconom;
+            // TODO: Complete member initialization
+            this.result = result;
         }
 
         private void BtnRetour_Click(object sender, EventArgs e)
@@ -29,7 +30,7 @@ namespace algoSimplex
 
         private void FResultat_Load(object sender, EventArgs e)
         {
-            this.dataResult.DataSource = tableauFoncEconom.DataSource;
+            //this.dataResult.DataSource = tableauFoncEconom.DataSource;
         }
     }
 }
