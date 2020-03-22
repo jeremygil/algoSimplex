@@ -27,10 +27,7 @@ namespace algoSimplex
         {
             //Partie initialisation
             initialiseTable(false, trackContrainte, trackVariable, tableauZ, tableauContraintes);
-            zValue = calculZ(listCp, listQuantite);
-            listZj = calculZj(listCp, listContrainte, row, tailleMax);
-            listCjZj = calculSoustractionCjZj(listCj, listZj);
-
+            
             bool verif = true;
             do
             {
@@ -40,9 +37,9 @@ namespace algoSimplex
                 listCp = updateCp(listCp, listCj, lignePivot);
                 double valuePivot = listContrainte[lignePivot, colonnePivot];
                 listQuantite = updateQuantitePivot(listQuantite, lignePivot, valuePivot);
-                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, column);
+                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, tailleMax);
                 listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
-                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, column);
+                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, tailleMax);
                 zValue = calculZ(listCp, listQuantite);
                 listZj = calculZj(listCp, listContrainte, row, tailleMax);
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -55,9 +52,6 @@ namespace algoSimplex
         public static double[] minimiser(TrackBar trackContrainte, TrackBar trackVariable, DataGridView tableauZ, DataGridView tableauContraintes)
         {
             initialiseTable(true, trackContrainte, trackVariable, tableauZ, tableauContraintes);
-            zValue = calculZ(listCp, listQuantite);
-            listZj = calculZj(listCp, listContrainte, row, tailleMax);
-            listCjZj = calculSoustractionCjZj(listCj, listZj);
 
             bool verif = true;
             do
@@ -68,9 +62,9 @@ namespace algoSimplex
                 listCp = updateCp(listCp, listCj, lignePivot);
                 double valuePivot = listContrainte[lignePivot, colonnePivot];
                 listQuantite = updateQuantitePivot(listQuantite, lignePivot, valuePivot);
-                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, column);
+                listContrainte = updateContraintePivot(listContrainte, lignePivot, valuePivot, tailleMax);
                 listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
-                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, column);
+                listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, tailleMax);
                 zValue = calculZ(listCp, listQuantite);
                 listZj = calculZj(listCp, listContrainte, row, tailleMax);
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -84,7 +78,6 @@ namespace algoSimplex
         {
             row = trackContrainte.Value;
             column = trackVariable.Value;
-            zValue = 0;
 
             //Rempli le tableau des contraintes
             double[,] listConstraintTemp = new double[row, column];
@@ -218,7 +211,7 @@ namespace algoSimplex
                         }
                         else
                         {
-                            listCp[i] = listVariableEcart[i, j];
+                            listCp[i] = 0;
                         }
                     }
                 }
@@ -232,8 +225,9 @@ namespace algoSimplex
                 listQuantite[i] = Double.Parse(tableauContraintes.Rows[i].Cells[colonneQuantite].Value.ToString());
             }
 
-            listZj = new double[tailleMax];
-            listCjZj = new double[tailleMax];
+            zValue = calculZ(listCp, listQuantite);
+            listZj = calculZj(listCp, listContrainte, row, tailleMax);
+            listCjZj = calculSoustractionCjZj(listCj, listZj);
 
         }
 
@@ -256,16 +250,16 @@ namespace algoSimplex
         {
             double[] valeurZj = new double[pColumn];
 
-            for (int row = 0; row < pRow; row++)
+            for (int i = 0; i < pColumn; i++)
             {
                 double value = 0;
-                for (int column = 0; column < pColumn; column++)
+                for (int j = 0; j < pRow; j++)
                 {
                     LOGGER.Info("Valeur boucle :" + value);
-                    value += listCP[row] * listContrainte[row, column];
+                    value += listCP[j] * listContrainte[j, i];
                 }
                 LOGGER.Info("Value :" + value);
-                valeurZj[row] = value;
+                valeurZj[i] = value;
                 LOGGER.Info("ValeurZj :" + valeurZj[row]);
             }
 
