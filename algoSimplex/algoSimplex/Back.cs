@@ -86,43 +86,29 @@ namespace algoSimplex
             {
                 for (int j = 0; j < column; j++)
                 {
-                    listConstraintTemp[i, j] = Double.Parse(tableauContraintes[j, i].Value.ToString());
+                    listConstraintTemp[i, j] = Double.Parse(tableauContraintes.Rows[i].Cells[j].Value.ToString());
                 }
             }
 
-            int[,] listVariableEcart = new int[row, column];
-            int[,] listVariableArtificiel = new int[row, column];
+            int[,] listVariableEcart = new int[row, row];
+            int[,] listVariableArtificiel = new int[row, row];
             int columnEcart = 0;
             int columnArtificiel = 0;
-            int colonneoperateur = column;
 
             for (int i = 0; i < row; i++)
             {
-                string operateur = tableauContraintes.Rows[i].Cells[colonneoperateur].Value.ToString();
-                for (int j = 0; j < column; j++)
+                string operateur = tableauContraintes.Rows[i].Cells[column].Value.ToString();
+                for (int j = 0; j < row; j++)
                 {
                     if (i == j)
                     {
-                        if (operateur.Contains("<="))
+                        if (operateur.Contains("<"))
                         {
                             listVariableEcart[i, j] = 1;
                             listVariableArtificiel[i, j] = 0;
                             columnEcart++;
-                        }
-                        else if (operateur.Contains("="))
-                        {
-                            listVariableEcart[i, j] = 0;
-                            if (minimiser)
-                            {
-                                listVariableArtificiel[i, j] = Int32.MaxValue;
-                            }
-                            else
-                            {
-                                listVariableArtificiel[i, j] = Int32.MinValue;
-                            }
-                            columnArtificiel++;
-                        }
-                        else
+                        }                        
+                        else if (operateur.Contains(">"))
                         {
                             listVariableEcart[i, j] = -1;
                             if (minimiser)
@@ -136,6 +122,19 @@ namespace algoSimplex
 
                             columnArtificiel++;
                             columnEcart++;
+                        }
+                        else
+                        {
+                            listVariableEcart[i, j] = 0;
+                            if (minimiser)
+                            {
+                                listVariableArtificiel[i, j] = Int32.MaxValue;
+                            }
+                            else
+                            {
+                                listVariableArtificiel[i, j] = Int32.MinValue;
+                            }
+                            columnArtificiel++;
                         }
 
                     }
@@ -176,11 +175,11 @@ namespace algoSimplex
             listCj = new int[tailleMax];
             for (int i = 0; i < tailleMax; i++)
             {
-                if (i < row)
+                if (i < column)
                 {
-                    listCj[i] = Int32.Parse(tableauZ[i, 0].Value.ToString());
+                    listCj[i] = Int32.Parse(tableauZ.Rows[0].Cells[i].Value.ToString());
                 }
-                else if (i < (row + columnEcart))
+                else if (i < (column + columnEcart))
                 {
                     listCj[i] = 0;
                 }
