@@ -21,13 +21,14 @@ namespace algoSimplex
         private static double zValue;
         private static int row;
         private static int column;
+        private static int tailleMax;
 
         public static double[] maximiser(TrackBar trackContrainte, TrackBar trackVariable, DataGridView tableauZ, DataGridView tableauContraintes)
         {
             //Partie initialisation
             initialiseTable(false, trackContrainte, trackVariable, tableauZ, tableauContraintes);
             zValue = calculZ(listCp, listQuantite);
-            listZj = calculZj(listCp, listContrainte, row, column);
+            listZj = calculZj(listCp, listContrainte, row, tailleMax);
             listCjZj = calculSoustractionCjZj(listCj, listZj);
 
             bool verif = true;
@@ -43,7 +44,7 @@ namespace algoSimplex
                 listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
                 listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, column);
                 zValue = calculZ(listCp, listQuantite);
-                listZj = calculZj(listCp, listContrainte, row, column);
+                listZj = calculZj(listCp, listContrainte, row, tailleMax);
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
                 verif = isFinalMax(listCjZj);
             } while (verif);
@@ -55,7 +56,7 @@ namespace algoSimplex
         {
             initialiseTable(true, trackContrainte, trackVariable, tableauZ, tableauContraintes);
             zValue = calculZ(listCp, listQuantite);
-            listZj = calculZj(listCp, listContrainte, row, column);
+            listZj = calculZj(listCp, listContrainte, row, tailleMax);
             listCjZj = calculSoustractionCjZj(listCj, listZj);
 
             bool verif = true;
@@ -71,7 +72,7 @@ namespace algoSimplex
                 listQuantite = updateQuantite(listQuantite, lignePivot, colonnePivot, listContrainte);
                 listContrainte = updateContrainte(listContrainte, lignePivot, colonnePivot, row, column);
                 zValue = calculZ(listCp, listQuantite);
-                listZj = calculZj(listCp, listContrainte, row, column);
+                listZj = calculZj(listCp, listContrainte, row, tailleMax);
                 listCjZj = calculSoustractionCjZj(listCj, listZj);
                 verif = isFinalMin(listCjZj);
             } while (verif);
@@ -100,11 +101,11 @@ namespace algoSimplex
             int[,] listVariableArtificiel = new int[row, column];
             int columnEcart = 0;
             int columnArtificiel = 0;
-            int colonneoperateur = column + 1;
+            int colonneoperateur = column;
 
             for (int i = 0; i < row; i++)
             {
-                string operateur = tableauContraintes[i + 1, colonneoperateur].Value.ToString();
+                string operateur = tableauContraintes.Rows[i].Cells[colonneoperateur].Value.ToString();
                 for (int j = 0; j < column; j++)
                 {
                     if (i == j)
@@ -153,7 +154,7 @@ namespace algoSimplex
                 }
             }
 
-            int tailleMax = row + columnEcart + columnArtificiel;
+            tailleMax = row + columnEcart + columnArtificiel;
             listContrainte = new double[row, tailleMax];
             int valueEcart = 0;
             int valueArtificielle = 0;
@@ -225,14 +226,14 @@ namespace algoSimplex
 
             //Rempli le tableau de Quantité
             listQuantite = new double[row];
-            int colonneQuantite = column + 2;
+            int colonneQuantite = column + 1;
             for (int i = 0; i < row; i++)
             {
-                listQuantite[i] = Double.Parse(tableauContraintes[i + 1 , colonneQuantite].Value.ToString());
+                listQuantite[i] = Double.Parse(tableauContraintes.Rows[i].Cells[colonneQuantite].Value.ToString());
             }
 
-            listZj = new double[listCj.Length];
-            listCjZj = new double[listCj.Length];
+            listZj = new double[tailleMax];
+            listCjZj = new double[tailleMax];
 
         }
 
