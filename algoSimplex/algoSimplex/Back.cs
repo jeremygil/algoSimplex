@@ -25,7 +25,7 @@ namespace algoSimplex
         public static double[] maximiser(TrackBar trackContrainte, TrackBar trackVariable, DataGridView tableauZ, DataGridView tableauContraintes)
         {
             //Partie initialisation
-            initialiseTable(false, trackContrainte, trackVariable,tableauZ, tableauContraintes);
+            initialiseTable(false, trackContrainte, trackVariable, tableauZ, tableauContraintes);
             zValue = calculZ(listCp, listQuantite);
             listZj = calculZj(listCp, listContrainte, row, column);
             listCjZj = calculSoustractionCjZj(listCj, listZj);
@@ -92,7 +92,7 @@ namespace algoSimplex
             {
                 for (int j = 0; j < column; j++)
                 {
-                    listConstraintTemp[i, j] = Double.Parse(tableauContraintes[j,i].Value.ToString());
+                    listConstraintTemp[i, j] = Double.Parse(tableauContraintes[j, i].Value.ToString());
                 }
             }
 
@@ -104,7 +104,7 @@ namespace algoSimplex
 
             for (int i = 0; i < row; i++)
             {
-                string operateur = tableauContraintes[colonneoperateur, i].Value.ToString();
+                string operateur = tableauContraintes[i + 1, colonneoperateur].Value.ToString();
                 for (int j = 0; j < column; j++)
                 {
                     if (i == j)
@@ -155,23 +155,26 @@ namespace algoSimplex
 
             int tailleMax = row + columnEcart + columnArtificiel;
             listContrainte = new double[row, tailleMax];
+            int valueEcart = 0;
+            int valueArtificielle = 0;
 
             for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < column * 3; j++)
+                valueEcart = 0;
+                valueArtificielle = 0;
+                for (int j = 0; j < column; j++)
                 {
-                    if (j < column)
-                    {
-                        listContrainte[i, j] = listConstraintTemp[i, j];
-                    }
-                    else if (j < (tailleMax - columnArtificiel))
-                    {
-                        listContrainte[i, j] = listVariableEcart[i, j];
-                    }
-                    else
-                    {
-                        listContrainte[i, j] = listVariableArtificiel[i, j];
-                    }
+                    listContrainte[i, j] = listConstraintTemp[i, j];
+                }
+                for (int k = column; k < column + columnEcart; k++)
+                {
+                    listContrainte[i, k] = listVariableEcart[i, valueEcart];
+                    valueEcart++;
+                }
+                for (int l = column + columnEcart; l < tailleMax; l++)
+                {
+                    listContrainte[i, l] = listVariableArtificiel[i, valueArtificielle];
+                    valueArtificielle++;
                 }
             }
 
@@ -181,7 +184,7 @@ namespace algoSimplex
             {
                 if (i < row)
                 {
-                    listCj[i] = Int32.Parse(tableauZ[1,i].Value.ToString());
+                    listCj[i] = Int32.Parse(tableauZ[i, 0].Value.ToString());
                 }
                 else if (i < (row + columnEcart))
                 {
@@ -210,7 +213,7 @@ namespace algoSimplex
                     {
                         if (listVariableEcart[i, j] < 0)
                         {
-                            listCp[i] = listVariableArtificiel[i,j];
+                            listCp[i] = listVariableArtificiel[i, j];
                         }
                         else
                         {
@@ -225,7 +228,7 @@ namespace algoSimplex
             int colonneQuantite = column + 2;
             for (int i = 0; i < row; i++)
             {
-                listQuantite[i] = Double.Parse(tableauContraintes[colonneQuantite, i].Value.ToString());
+                listQuantite[i] = Double.Parse(tableauContraintes[i + 1 , colonneQuantite].Value.ToString());
             }
 
             listZj = new double[listCj.Length];
